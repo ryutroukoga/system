@@ -1,0 +1,1 @@
+<option value="" {{ empty($selected) ? 'selected' : '' }}>選択してください</option>
