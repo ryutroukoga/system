@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Teacher extends Model
 {
     use HasFactory;
+    protected $fillable = ['name','base'];
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
 }

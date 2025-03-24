@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','layer','unit','base','comment','teacher_id','stop_flg'];
-    public function user(){
-        return $this->belongsTo('App\Model\Teacher','teacher_id','id');
+    protected $fillable = ['name', 'layer', 'unit', 'base','date','comment', 'teacher_id', 'stop_flg'];
+
+    public function teacher()
+    {
+        return $this->belongsTo('App\Models\Teacher', 'teacher_id', 'id');
     }
 }

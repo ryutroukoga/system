@@ -10,9 +10,14 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() {}
+
+    public function layout()
     {
-        //
+        // 講師データを取得
+        $teachers = Teacher::all();  // teacherテーブルから全データを取得
+
+        return view('layouts.app_boot', compact('teachers'));
     }
 
     /**
@@ -20,7 +25,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return \view('teacher/teacher_create');
     }
 
     /**
@@ -28,7 +33,11 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Teacher::create([
+            'name' => $request->name,
+            'base' => $request->base,
+        ]);
+        return redirect()->route('teacher.create')->with('success', '講師が追加されました');
     }
 
     /**

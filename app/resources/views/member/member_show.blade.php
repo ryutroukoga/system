@@ -27,14 +27,14 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <h5>レイヤー</h5>
-                    <p class="fs-5">{{ $member->layer }}</p>
+                    <p class="fs-5">{{ $member->layer ?? '未設定' }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <h5>担当</h5>
-                    <p class="fs-5">{{ $member->teacher_id }}</p>
+                    <p class="fs-5">{{ $member->teacher->name ?? '未設定' }}</p>
                 </div>
                 <div class="col-md-6 mb-3">
                     <h5>状況</h5>
@@ -56,21 +56,21 @@
     <div class="d-flex justify-content-center mt-4">
         <a href="{{ route('member.edit', $member->id) }}" class="btn btn-primary btn-lg mx-2">編集</a>
         <a href="{{ route('home') }}" class="btn btn-secondary btn-lg mx-2">戻る</a>
-        
-        @if($post->status == 0)
-            <!-- アクティブの状態の場合 -->
-            <form action="{{ route('member.stop', $member->id) }}" method="POST" id="stopForm">
-                @csrf
-                @method('PATCH')
-                <button type="submit" class="btn btn-warning btn-lg mx-2" onclick="return confirmStop()">非アクティブにする</button>
-            </form>
+
+        @if($member->stop_flg == 0)
+        <!-- アクティブの状態の場合 -->
+        <form action="{{ route('member.stop', $member->id) }}" method="POST" id="stopForm">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="btn btn-warning btn-lg mx-2" onclick="return confirmStop()">非アクティブにする</button>
+        </form>
         @else
-            <!-- 非アクティブの状態の場合 -->
-            <form action="{{ route('member.active', $member->id) }}" method="POST" id="activateForm">
-                @csrf
-                @method('PATCH')
-                <button type="submit" class="btn btn-success btn-lg mx-2" onclick="return confirmActivate()">アクティブに復帰</button>
-            </form>
+        <!-- 非アクティブの状態の場合 -->
+        <form action="{{ route('member.active', $member->id) }}" method="POST" id="activateForm">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="btn btn-success btn-lg mx-2" onclick="return confirmActivate()">アクティブに復帰</button>
+        </form>
         @endif
     </div>
 </div>

@@ -18,11 +18,17 @@
         <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $member->name) }}">
     </div>
     <div class="col-md-6">
-        <label for="inputState" class="form-label">担当</label>
-        <select id="inputState" class="form-select" name="incharge">
-            @include('profile.partials.teacher', ['selected' => $member->teacher_id])
+        <label for="teacher_id" class="form-label">担当</label>
+        <select id="teacher_id" class="form-select" name="teacher_id">
+            <option value="">未設定</option>
+            @foreach($teachers as $teacher)
+            <option value="{{ $teacher->id }}" {{ old('teacher_id', $member->teacher_id) == $teacher->id ? 'selected' : '' }}>
+                {{ $teacher->name }}
+            </option>
+            @endforeach
         </select>
     </div>
+
 
     <div class="col-md-6">
         <label for="inputState" class="form-label">拠点</label>
@@ -53,11 +59,11 @@
     <!-- コメント欄 -->
     <div class="col-md-12">
         <label for="comments" class="form-label">コメント</label>
-        <textarea class="form-control" id="comments" name="comments" rows="3">{{ old('comment', $member->comment) }}</textarea>
+        <textarea class="form-control" id="comments" name="comment" rows="3">{{ old('comment', $member->comment) }}</textarea>
     </div>
 
     <div class="col-12 d-flex justify-content-center">
-        <a href="{{ route('home') }}" class="btn btn-secondary btn-lg mx-2">戻る</a>
+        <a href="{{ route('member.show', $member->id) }}" class="btn btn-secondary btn-lg mx-2">戻る</a>
         <button type="submit" class="btn btn-primary" style="width: auto;">更新</button>
     </div>
 </form>

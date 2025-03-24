@@ -15,10 +15,17 @@
         <label for="inputEmail4" class="form-label">名前</label>
         <input type="text" class="form-control" id="name" name="name">
     </div>
+    
     <div class="col-md-6">
-        <label for="inputState" class="form-label">担当</label>
-        <select id="inputState" class="form-select" name="teacher_id">
-            @include('profile.partials.teacher')
+        <label for="teacher_id" class="form-label">担当</label>
+        <select id="teacher_id" class="form-select" name="teacher_id">
+            <option value="" {{ old('teacher_id') ? '' : 'selected' }}>選択してください</option>
+            @foreach($teachers as $teacher)
+            <option value="{{ $teacher->id }}"
+                {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
+                {{ $teacher->name }}
+            </option>
+            @endforeach
         </select>
     </div>
 

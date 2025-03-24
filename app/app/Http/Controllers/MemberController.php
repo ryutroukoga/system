@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -12,8 +13,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = Member::where('stop_flg', 0)->get();
-        // レイヤーごとのカウント
+        $members = Member::with('teacher')->where('stop_flg', 0)->get();
         $layerCounts = [
             '1' => $members->where('layer', 1)->where('stop_flg', 0)->count(),
             '2' => $members->where('layer', 2)->where('stop_flg', 0)->count(),
@@ -38,7 +38,10 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return \view('member/member_create');
+        $teachers = Teacher::all();
+        return \view('member/member_create', [
+            'teachers' => $teachers
+        ]);
     }
 
     /**
@@ -48,13 +51,13 @@ class MemberController extends Controller
     {
         Member::create([
             'name' => $request->name,
-            'teacher' => $request->teacher_id,
+            'teacher_id' => $request->teacher_id,
             'base' => $request->base,
             'unit' => $request->unit,
             'layer' => $request->layer,
             'date' => $request->date,
         ]);
-    
+
         // 成功メッセージをセッションに保存し、'post.create' ルートにリダイレクト
         return redirect()->route('member.create')->with('success', '人材が追加されました');
     }
@@ -64,8 +67,10 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
+        $teachers = Teacher::all();
         return view('member/member_show', [
             'member' => $member,
+            'teachers' => $teachers
         ]);
     }
 
@@ -74,26 +79,31 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        
+
+        $teachers = Teacher::all();
+        return view('member/member_edit', [
+            'member' => $member,
+            'teachers' => $teachers
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Member $member)
-{
-    $member->update([
-        'name' => $request->name,
-        'teacher_id' => $request->teacher_id,
-        'base' => $request->base,
-        'unit' => $request->unit,
-        'layer' => $request->layer,
-        'date' => $request->date,
-        'comment' => $request->comment,
-    ]);
+    {
+        $member->update([
+            'name' => $request->name,
+            'teacher_id' => $request->teacher_id,
+            'base' => $request->base,
+            'unit' => $request->unit,
+            'layer' => $request->layer,
+            'date' => $request->date,
+            'comment' => $request->comment,
+        ]);
 
-    return redirect()->route('member.edit', $member->id)->with('success', '人材情報が更新されました');
-}
+        return redirect()->route('member.show', $member->id);
+    }
 
 
     public function active(Request $request, Member $member)
@@ -110,7 +120,6 @@ class MemberController extends Controller
             'stop_flg' => 1, // statusを1に更新
         ]);
         return redirect()->route('member.show', $member->id)->with('success', '非アクティブにしました');
-
     }
 
     /**

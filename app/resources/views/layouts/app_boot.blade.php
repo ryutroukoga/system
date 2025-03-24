@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{ url('/') }}">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="{{ url('/') }}">進捗確認システム</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -55,14 +55,14 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">全体</div>
                         <a class="nav-link" href="{{ url('/') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-school"></i></div>
                             home
                         </a>
                         <a class="nav-link" href="{{ route('member.create') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
                             人材追加
                         </a>
-                        <a class="nav-link" href="{{ route('member.create') }}">
+                        <a class="nav-link" href="{{ route('teacher.create') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
                             講師追加
                         </a>
@@ -74,10 +74,12 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="#">小久保</a>
-                                <a class="nav-link" href="#">古賀</a>
+                                @foreach ($teachers as $teacher)
+                                <a class="nav-link" href="#">{{ $teacher->name }}</a>
+                                @endforeach
                             </nav>
                         </div>
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             ティーチャー
@@ -86,18 +88,16 @@
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    認証
+                                    未定
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{{ route('login') }}">ログイン</a>
-                                        <a class="nav-link" href="{{ route('register') }}">登録</a>
-                                        <a class="nav-link" href="{{ route('password.request') }}">パスワード再設定</a>
+                                        <a class="nav-link" href="">未定</a>
                                     </nav>
                                 </div>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    エラー
+                                    未定
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
                                 <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
@@ -144,6 +144,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/demo/chart-area-demo.js') }}"></script>
     <!-- <script src="{{ asset('assets/demo/chart-bar-demo.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script>

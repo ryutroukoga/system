@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherController;
 use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 
@@ -31,14 +32,18 @@ Route::middleware('auth')->group(function () {
 
     //人材追加
     Route::get('/', [MemberController::class, 'index'])->name('home');
-    Route::get('/member/create', [MemberController::class, 'create'])->name('member.create');
-    Route::get('/member/store', [MemberController::class, 'store'])->name('member.store');
-    Route::get('/member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
-    Route::put('/member/{member}/update', [MemberController::class, 'update'])->name('member.update');
-    Route::get('/member/{member}/show', [MemberController::class, 'show'])->name('member.show');
-    Route::patch('/member/{member}/active', [MemberController::class, 'active'])->name('member.active');
-    Route::patch('/member/{member}/stop', [MemberController::class, 'stop'])->name('member.stop');
+    Route::get('member/create', [MemberController::class, 'create'])->name('member.create');
+    Route::post('member/store', [MemberController::class, 'store'])->name('member.store');
+    Route::get('member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
+    Route::put('member/{member}/update', [MemberController::class, 'update'])->name('member.update');
+    Route::get('member/{member}/show', [MemberController::class, 'show'])->name('member.show');
+    Route::patch('member/{member}/active', [MemberController::class, 'active'])->name('member.active');
+    Route::patch('member/{member}/stop', [MemberController::class, 'stop'])->name('member.stop');
   
+    // 講師追加
+    Route::get('teacher/create',[TeacherController::class,'create'])->name('teacher.create');
+    Route::post('teacher/store', [TeacherController::class, 'store'])->name('teacher.store');
+
 });
 
 require __DIR__ . '/auth.php';

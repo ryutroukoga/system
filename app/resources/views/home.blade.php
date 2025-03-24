@@ -81,6 +81,7 @@
                         <th>拠点</th>
                         <th>開始日</th>
                         <th>レイヤー</th>
+                        <th>担当</th>
                         <th>状況</th>
                     </tr>
                 </thead>
@@ -92,6 +93,7 @@
                         <th>拠点</th>
                         <th>開始日</th>
                         <th>レイヤー</th>
+                        <th>担当</th>
                         <th>状況</th>
                     </tr>
                 </tfoot>
@@ -103,9 +105,10 @@
                         <td>{{ $member->unit }}</td>
                         <td>{{ $member->base }}</td>
                         <td>{{ $member->date }}</td>
-                        <td>{{ $member->layer }}</td>
+                        <td>{{ $member->layer ?? '未設定' }}</td>
+                        <td>{{ $member->teacher->name ?? '未設定' }}</td>
                         <td>
-                            @if ($post->stop_flg == 0)
+                            @if ($member->stop_flg == 0)
                             アクティブ
                             @else
                             非アクティブ
@@ -118,9 +121,6 @@
         </div>
     </div>
 </div>
-@endsection
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // DOMが完全に読み込まれてからスクリプトを実行
     document.addEventListener("DOMContentLoaded", function() {
@@ -174,3 +174,4 @@
         });
     });
 </script>
+@endsection
