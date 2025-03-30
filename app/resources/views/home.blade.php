@@ -11,7 +11,7 @@
             <div class="card bg-primary text-white mb-4">
                 <div class="card-body">フロントエンド</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="{{ route('frontend') }}">メンバー一覧</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="card bg-warning text-white mb-4">
                 <div class="card-body">サーバーサイド基礎</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="{{ route('serverside') }}">メンバー一覧</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="card bg-success text-white mb-4">
                 <div class="card-body">Laravel</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="{{ route('laravel') }}">メンバー一覧</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -38,22 +38,13 @@
             <div class="card bg-danger text-white mb-4">
                 <div class="card-body">自作課題</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="{{ route('customtask') }}">メンバー一覧</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Example
-                </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-            </div>
-        </div>
         <div class="col-xl-6">
             <div class="card mb-4">
                 <div class="card-header">
@@ -128,7 +119,7 @@
 
         // PHPからJavaScriptへ安全にデータを渡す
         var layerCounts = @json($layerCounts);
-
+        var inactiveCount = @json($inactiveCount);
         var myBarChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -143,6 +134,7 @@
                         layerCounts['3'],
                         layerCounts['4'],
                         layerCounts['5'],
+                        inactiveCount,
                     ],
                 }],
             },
@@ -159,7 +151,7 @@
                     y: {
                         ticks: {
                             min: 0,
-                            max: 20,
+                            max: 30,
                             maxTicksLimit: 5
                         },
                         grid: {

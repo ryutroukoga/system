@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('teacher/create',[TeacherController::class,'create'])->name('teacher.create');
     Route::post('teacher/store', [TeacherController::class, 'store'])->name('teacher.store');
 
+    // 各単元表示ルート
+    Route::get('/frontend', [MemberController::class, 'frontend'])->name('frontend');
+    Route::get('/serverside', [MemberController::class, 'serverside'])->name('serverside');
+    Route::get('/laravel', [MemberController::class, 'laravel'])->name('laravel');
+    Route::get('/customtask', [MemberController::class, 'customtask'])->name('customtask');
 });
 
 require __DIR__ . '/auth.php';

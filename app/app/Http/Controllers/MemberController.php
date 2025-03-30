@@ -13,7 +13,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = Member::with('teacher')->where('stop_flg', 0)->get();
+        $members = Member::with('teacher')->get();
         $layerCounts = [
             '1' => $members->where('layer', 1)->where('stop_flg', 0)->count(),
             '2' => $members->where('layer', 2)->where('stop_flg', 0)->count(),
@@ -128,5 +128,29 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
+    }
+
+    public function frontend()
+    {
+        $members = Member::whereIn('unit', ['1', '2', '3-1', '3-2', '3-3'])->get();
+        return view('member.frontend', compact('members'));
+    }
+
+    public function serverside()
+    {
+        $members = Member::whereIn('unit', ['4-1', '4-2', '4-3', '4-4', '5-1', '5-2'])->get();
+        return view('member.serverside', compact('members'));
+    }
+
+    public function laravel()
+    {
+        $members = Member::whereIn('unit', ['6-1', '6-2', '6-3', '6-4', '6-5'])->get();
+        return view('member.laravel', compact('members'));
+    }
+
+    public function customtask()
+    {
+        $members = Member::whereIn('unit', ['設計', '製造'])->get();
+        return view('member.customtask', compact('members'));
     }
 }
