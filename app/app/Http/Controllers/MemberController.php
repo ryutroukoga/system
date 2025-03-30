@@ -153,4 +153,12 @@ class MemberController extends Controller
         $members = Member::whereIn('unit', ['設計', '製造'])->get();
         return view('member.customtask', compact('members'));
     }
+
+    public function teachermember(Teacher $teacher)
+    {
+        // 指定された講師のデータを取得
+        $members = Member::where('teacher_id', $teacher->id)->get();
+
+        return view('member.teacher', compact('members', 'teacher'));
+    }
 }

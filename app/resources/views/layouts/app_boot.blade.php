@@ -75,7 +75,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 @foreach ($teachers as $teacher)
-                                <a class="nav-link" href="#">{{ $teacher->name }}</a>
+                                <a class="nav-link" href="{{ route('teacher.member', $teacher->id) }}">{{ $teacher->name }}</a>
                                 @endforeach
                             </nav>
                         </div>

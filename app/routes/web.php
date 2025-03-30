@@ -39,9 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('member/{member}/show', [MemberController::class, 'show'])->name('member.show');
     Route::patch('member/{member}/active', [MemberController::class, 'active'])->name('member.active');
     Route::patch('member/{member}/stop', [MemberController::class, 'stop'])->name('member.stop');
-  
+
     // 講師追加
-    Route::get('teacher/create',[TeacherController::class,'create'])->name('teacher.create');
+    Route::get('teacher/create', [TeacherController::class, 'create'])->name('teacher.create');
     Route::post('teacher/store', [TeacherController::class, 'store'])->name('teacher.store');
 
     // 各単元表示ルート
@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/serverside', [MemberController::class, 'serverside'])->name('serverside');
     Route::get('/laravel', [MemberController::class, 'laravel'])->name('laravel');
     Route::get('/customtask', [MemberController::class, 'customtask'])->name('customtask');
+    // 講師別担当一覧
+    Route::get('member/teacher/{teacher}', [MemberController::class, 'teachermember'])->name('teacher.member');
 });
 
 require __DIR__ . '/auth.php';
